@@ -13,15 +13,11 @@ $(".w-dropdown-toggle").each(function() {
   $(this).keydown(function(e) {
     /* IF enter click (toogle menu) */
     if (e.which == ENTER_KEY_CODE) {
-      console.log("Enter pressed");
       toggleAccessibilityDropdown(this);
       toggledAriaExpanded();
     }
     /* IF click on TAB_KEY_CODE & menu not open ==> Open Menu */
-    if (
-      e.which == TAB_KEY_CODE &&
-      !$("div.w-dropdown-toggle").hasClass("w--open")
-    ) {
+    if (e.which == TAB_KEY_CODE && !$("div.w-dropdown-toggle").hasClass("w--open")) {
       console.log("TAB_KEY_CODE pressed");
       toggleAccessibilityDropdown(this);
       toggledAriaExpanded();
@@ -35,16 +31,15 @@ $(".w-dropdown-toggle").each(function() {
     }
     /* DOWN_ARROW_KEY_CODE ==> Open Menu */
     if (e.which == DOWN_ARROW_KEY_CODE) {
-      toggleAccessibilityDropdown(this);
+      $(this).closest(".w-dropdown").find("div.w-dropdown-toggle").addClass("w--open");
+      $(this).closest(".w-dropdown").find("nav.w-dropdown-list").addClass("w--open");
       toggledAriaExpanded();
       $(".w-dropdown nav a:first-child").focus();
       console.log("DOWN_ARROW_KEY_CODE pressed");
     }
     //Esc KEY_CODE close menu
     if (
-      e.which == ESCAPE_KEY_CODE &&
-      $("div.w-dropdown-toggle").hasClass("w--open")
-    ) {
+      e.which == ESCAPE_KEY_CODE && $("div.w-dropdown-toggle").hasClass("w--open")) {
       console.log("ESCAPE_KEY_CODE");
       toggleAccessibilityDropdown(this);
       toggledAriaExpanded();
@@ -53,7 +48,7 @@ $(".w-dropdown-toggle").each(function() {
 }); /*end for each */
 
 /*########################################################################
-                      Keyboards Event Part 2 of 2
+                      Keyboards Event Part 2 of 2 
 ########################################################################## */
 /* Click events for the ".w-dropdown-link" child */
 $(".w-dropdown-link").keydown(function(e) {
@@ -63,20 +58,10 @@ $(".w-dropdown-link").keydown(function(e) {
       .parent()
       .children()
       .last()
-      .css("background-color", "orange");
-    $(this)
-      .parent()
-      .children()
-      .last()
       .focus();
   }
   /* Home Key --> If the listbox is displayed, moves focus to and selects the first option */
   if (e.which == KEYCODE_MOVE_HOME) {
-    $(this)
-      .parent()
-      .children()
-      .first()
-      .css("background-color", "blue");
     $(this)
       .parent()
       .children()
@@ -90,16 +75,9 @@ $(".w-dropdown-link").keydown(function(e) {
     toggledAriaExpanded();
   }
 
-  /* IF click on TAB_KEY_CODE + shiftKey & menu not open ==> Open Menu */
-  if (e.shiftKey && e.which == TAB_KEY_CODE) {
-    //shift was down when tab was pressed
-    console.log("dropdown-link Shift + TAB_KEY_CODE pressed");
-  }
   /* DOWN_ARROW_KEY_CODE + Not last child  ==> Open Menu */
   if (e.which == DOWN_ARROW_KEY_CODE && $(this).not(":last-child")) {
-    $(this)
-      .next()
-      .focus();
+    $(this).next().focus();
     console.log("dropdown-link DOWN_ARROW_KEY_CODE pressed");
   }
   /* LAST CHILD ############################## */
@@ -114,17 +92,13 @@ $(".w-dropdown-link").keydown(function(e) {
       //shift was down when tab was pressed
       $(this).prev().focus();
       toggledAriaExpanded();
-      toggleAccessibilityDropdown(this);
+      toggleAccessibilityDropdown(this);  
       console.log("LASTTTTTTT dropdown-link Shift + TAB_KEY_CODE pressed");
     }
     /* DOWN_ARROW_KEY_CODE + last child  ==> close Menu + Focus next element */
     if (e.which == DOWN_ARROW_KEY_CODE) {
-      $(this)
-        .parent()
-        .parent()
-        .next()
-        .focus();
-      focusoutDropDown();
+      $(this).parent().parent().next().focus();
+      toggleAccessibilityDropdown(this);  
       console.log("Last child dropdown-link DOWN_ARROW_KEY_CODE pressed");
     }
   }
@@ -141,44 +115,34 @@ $(".w-dropdown-link").keydown(function(e) {
   if ($(this).is(":first-child")) {
     /* First Child - UP_ARROW_KEY_CODE ==> Open Menu */
     if (e.which == UP_ARROW_KEY_CODE) {
-      $(this)
-        .closest(".w-dropdown")
-        .prev()
-        .focus();
-      $(this)
-        .closest("nav")
-        .prev()
-        .find(".dropdown")
-        .focus();
+      $(this).closest(".w-dropdown").prev().focus();
+      $(this).closest("nav").prev().find(".dropdown").focus();
       removeClassAccessibilityDropdown(this);
       toggledAriaExpanded();
       console.log("First child dropdown-link UP_ARROW_KEY_CODE pressed");
     }
   }
-
   //Esc KEY_CODE close menu
-  if (
-    e.which == ESCAPE_KEY_CODE &&
-    $("div.w-dropdown-toggle").hasClass("w--open")
-  ) {
-removeClassAccessibilityDropdown();
-    $(".w-dropdown-toggle").focus();
+  if (e.which == ESCAPE_KEY_CODE && $("div.w-dropdown-toggle").hasClass("w--open")) {
+    toggleAccessibilityDropdown(this);  
+    $(this).closest(".w-dropdown").find(".w-dropdown-toggle").focus();
     toggledAriaExpanded();
     console.log("dropdown-link ESCAPE_KEY_CODE");
   }
 });
 
 function focusoutDropDown() {
-  removeClassAccessibilityDropdown();
+  removeClassAccessibilityDropdown(this);
 }
-function toggleAccessibilityDropdown(obj) {
+function toggleAccessibilityDropdown(obj) {  
     $(obj).closest(".w-dropdown").find("div.w-dropdown-toggle").toggleClass("w--open");
     $(obj).closest(".w-dropdown").find("nav.w-dropdown-list").toggleClass("w--open");
 }
 
-function removeClassAccessibilityDropdown() {
-    $("div.w-dropdown-toggle").removeClass("w--open");
-    $("nav.w-dropdown-list").removeClass("w--open");
+
+function removeClassAccessibilityDropdown(obj) { 
+    $(obj).closest("div.w-dropdown-toggle").removeClass("w--open");
+    $(obj).closest("nav.w-dropdown-list").removeClass("w--open");
 }
 
 
