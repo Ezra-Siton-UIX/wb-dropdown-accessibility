@@ -1,4 +1,4 @@
-# wb-dropdown-accessibility
+# webflow dropdown accessibility
 Accessible is very important issue.
 
 **DEMO**
