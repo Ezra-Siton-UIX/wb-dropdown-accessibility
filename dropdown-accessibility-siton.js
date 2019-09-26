@@ -128,6 +128,6 @@ function toggledAriaExpanded() {
 
 /* Add tab index */
 $(".w-dropdown-toggle").attr("tabindex", "0");
-$("w-dropdown a").each(function() {
+$(".w-dropdown a").each(function() {
   $(this).attr("tabindex", "0");
 });
