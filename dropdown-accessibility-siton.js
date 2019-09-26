@@ -3,7 +3,7 @@ const DOWN_ARROW_KEY_CODE = 40;
 const UP_ARROW_KEY_CODE = 38;
 const ESCAPE_KEY_CODE = 27;
 const TAB_KEY_CODE = 9;
-const SHIFT_KEY_CODE = 9;
+const SHIFT_KEY_CODE = 16;
 const KEYCODE_MOVE_END = 35;
 const KEYCODE_MOVE_HOME = 36;
 
