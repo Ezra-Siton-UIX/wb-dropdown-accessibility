@@ -121,13 +121,17 @@ function removeClassAccessibilityDropdown(obj) {
 /* ARIA Controls */
 $(".w-dropdown").attr("aria-haspopup", "true");
 var toggled = false;
+
 function toggledAriaExpanded() {
   toggled = !toggled;
   $(".w-dropdown").attr("aria-expanded", toggled);
 }
 
 /* Add tab index */
-$(".w-dropdown-toggle").attr("tabindex", "0");
+$(".w-dropdown-toggle").each(function() {
+  $(this).attr("tabindex", "0");
+});
+
 $(".w-dropdown a").each(function() {
   $(this).attr("tabindex", "0");
 });
