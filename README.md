@@ -1,4 +1,4 @@
-# webflow dropdown accessibility
+# webflow dropdown accessibility (Out of USE - webflow also solve this by the Core code)
 Accessible is very important issue.
 
 **DEMO**
